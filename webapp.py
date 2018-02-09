@@ -17,11 +17,11 @@ app.debug = True #Change this to False for production
 app.secret_key = os.environ['SECRET_KEY'] 
 oauth = OAuth(app)
 
-
+#Set up Github as OAuth provider
 github = oauth.remote_app(
     'github',
-    consumer_key=os.environ['GITHUB_CLIENT_ID'], 
-    consumer_secret=os.environ['GITHUB_CLIENT_SECRET'],
+    consumer_key=os.environ['GITHUB_CLIENT_ID'], #your web app's "username" for github OAuth
+    consumer_secret=os.environ['GITHUB_CLIENT_SECRET'], #your web app's "password" for github OAuth
     request_token_params={'scope': 'user:email'}, #request read-only access to the user's email.  For a list of possible scopes, see developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps
     base_url='https://api.github.com/',
     request_token_url=None,
