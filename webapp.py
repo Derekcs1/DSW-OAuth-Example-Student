@@ -59,14 +59,12 @@ def authorized():
         message = 'Access denied: reason=' + request.args['error'] + ' error=' + request.args['error_description'] + ' full=' + pprint.pformat(request.args)      
     else:
         try:
-            #save user data and set log in message
-            session['github_token']=(resp['access_token'],'')
+            session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
-            message="You were successfully logged in as " + session['user_data']['login']
+            message='You were successfully logged in as ' + session['user_data']['login']
         except:
-            #clear the session and give error message
             session.clear()
-            message='Unable to login. Please try again.'
+            message='Unable to login, please try again.  ' + error
     return render_template('message.html', message=message)
 
 
